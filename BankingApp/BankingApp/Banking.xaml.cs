@@ -10,6 +10,8 @@ namespace BankingApp
     /// </summary>
     public partial class Banking : Window
     {
+        const decimal transactionFee = 2.00m;
+
         decimal cSavingsBalance = 4346.37m;
         decimal cChequeBalance = 1386.37m;
         decimal cInvestmentBalance = 3138.78m;
@@ -122,23 +124,42 @@ namespace BankingApp
                         break;
 
                     case "ChequeRadioButtonOn&SavingsRadioButtonOn":  // from Cheque to Savings
-                        fromBalance = fromBalance - amountTransfer;
-                        cChequeBalance = fromBalance;
-                        fromBalanceLabel.Content = cChequeBalance.ToString("C");
+                        if (amountTransfer + transactionFee > fromBalance)
+                        {
+                            MessageBox.Show("Error! Insufficient funds including transaction fee.");
+                            Keyboard.Focus(amountTextBox);
+                            amountTextBox.SelectAll();
+                        }
+                        
+                        else
+                        {
+                            fromBalance = fromBalance - (amountTransfer + transactionFee);
+                            cChequeBalance = fromBalance;
+                            fromBalanceLabel.Content = cChequeBalance.ToString("C");
 
-                        toBalance = toBalance + amountTransfer;
-                        cSavingsBalance = toBalance;
-                        toBalanceLabel.Content = cSavingsBalance.ToString("C");
+                            toBalance = toBalance + amountTransfer;
+                            cSavingsBalance = toBalance;
+                            toBalanceLabel.Content = cSavingsBalance.ToString("C");
+                        }                       
                         break;
 
                     case "ChequeRadioButtonOn&InvestmentRadioButtonOn":   // from Cheque to Investment
-                        fromBalance = fromBalance - amountTransfer;
-                        cChequeBalance = fromBalance;
-                        fromBalanceLabel.Content = cChequeBalance.ToString("C");
+                        if (amountTransfer + transactionFee > fromBalance)
+                        {
+                            MessageBox.Show("Error! Insufficient funds including transaction fee.");
+                            Keyboard.Focus(amountTextBox);
+                            amountTextBox.SelectAll();
+                        }
+                        else
+                        {
+                            fromBalance = fromBalance - (amountTransfer + transactionFee);
+                            cChequeBalance = fromBalance;
+                            fromBalanceLabel.Content = cChequeBalance.ToString("C");
 
-                        toBalance = toBalance + amountTransfer;
-                        cInvestmentBalance = toBalance;
-                        toBalanceLabel.Content = cInvestmentBalance.ToString("C");
+                            toBalance = toBalance + amountTransfer;
+                            cInvestmentBalance = toBalance;
+                            toBalanceLabel.Content = cInvestmentBalance.ToString("C");
+                        }                        
                         break;
 
                     case "InvestmentRadioButtonOn&SavingsRadioButtonOn":  // from Investment to Saving
