@@ -10,7 +10,7 @@ namespace BankingApp
     /// </summary>
     public partial class Banking : Window
     {
-        const decimal transactionFee = 2.00m;
+        const decimal transactionFeeCheque = 2.00m;
 
         decimal cSavingsBalance = 4346.37m;
         decimal cChequeBalance = 1386.37m;
@@ -124,7 +124,7 @@ namespace BankingApp
                         break;
 
                     case "ChequeRadioButtonOn&SavingsRadioButtonOn":  // from Cheque to Savings
-                        if (amountTransfer + transactionFee > fromBalance)
+                        if (amountTransfer + transactionFeeCheque > fromBalance)
                         {
                             MessageBox.Show("Error! Insufficient funds including transaction fee.");
                             Keyboard.Focus(amountTextBox);
@@ -133,7 +133,7 @@ namespace BankingApp
                         
                         else
                         {
-                            fromBalance = fromBalance - (amountTransfer + transactionFee);
+                            fromBalance = fromBalance - (amountTransfer + transactionFeeCheque);
                             cChequeBalance = fromBalance;
                             fromBalanceLabel.Content = cChequeBalance.ToString("C");
 
@@ -144,7 +144,7 @@ namespace BankingApp
                         break;
 
                     case "ChequeRadioButtonOn&InvestmentRadioButtonOn":   // from Cheque to Investment
-                        if (amountTransfer + transactionFee > fromBalance)
+                        if (amountTransfer + transactionFeeCheque > fromBalance)
                         {
                             MessageBox.Show("Error! Insufficient funds including transaction fee.");
                             Keyboard.Focus(amountTextBox);
@@ -152,7 +152,7 @@ namespace BankingApp
                         }
                         else
                         {
-                            fromBalance = fromBalance - (amountTransfer + transactionFee);
+                            fromBalance = fromBalance - (amountTransfer + transactionFeeCheque);
                             cChequeBalance = fromBalance;
                             fromBalanceLabel.Content = cChequeBalance.ToString("C");
 
